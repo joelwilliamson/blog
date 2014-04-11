@@ -10,6 +10,9 @@
  * the same arguments will execute in O(log X), where X is the number of
  * distinct calls made to function objects with decltype(f).
  *
+ * The types of a0,a1,...,aN must be lvalue references or make_tuple will fail.
+ * Consequently, most calls to memoize should pass in temporary objects.
+ *
  * Example:
  *     long long fibonacci(int n) {
  *         if (n == 0) return 0;
@@ -20,7 +23,8 @@
 
 template <typename function_t, typename...Args>
 typename std::result_of<function_t(Args...)>::type
-memoize(function_t f, Args&&...a) {
+memoize_(function_t f, Args&&...a)
+	{
 	// Create a lookup table indexed on the function and its arguments.
 	// Preserve the table across function calls
 	static std::map<std::tuple<function_t,Args...>, typename std::result_of<function_t(Args...)>::type> computed;
@@ -37,3 +41,16 @@ memoize(function_t f, Args&&...a) {
 		return computed[arg_tuple] = f(a...);
 		}
 	}
+
+template <typename function_t, typename...Args>
+typename std::result_of<function_t(Args...)>::type
+plain_call(function_t f, Args&&...a)
+	{
+	return f(a...);
+	}
+
+#ifndef NO_MEMOIZE
+	#define memoize memoize_
+#else
+	#define memoize plain_call
+#endif
