@@ -6,6 +6,7 @@
 #include <iostream>
 #include <random>
 #include <limits>
+#include <string>
 
 #include <cassert>
 
@@ -81,8 +82,15 @@ unsigned int MCM(iter first, iter last)
 	return lowest_cost;
 	}
 
-int main()
+// As the first argument, pass in the size of the sequence to consider.
+int main(int argc, char** argv)
 	{
+	if (argc != 2) {
+		std::cerr << argv[0] << ": sequence_length" << std::endl;
+		return 1;
+		}
+	int length = std::stoi(argv[1]);
+	/*
 	std::vector<Matrix> testProblem1{{40,5},{5,60},{60,8},{8,100}};
 	// This should take 40*5*8+100*8*5+40*5*100 = 1600 + 4000 + 20_000
 	std::cout << "Test 1" << std::endl;
@@ -97,4 +105,8 @@ int main()
 	PrintProblem(example);
 	std::cout << "The last element is " << *(example.end()-1) <<std::endl;
 	std::cout << "The cost of the example is " << MCM(example.begin(),example.end()) << std::endl;
+	*/
+	std::cout << "Now running a problem with " << length << " matrices..." << std::endl;
+	auto largeProblem = GenerateProblem(length);
+	std::cout << "The cost is " << memoize(MCM,largeProblem.begin(),largeProblem.end()) << std::endl;
 	}
