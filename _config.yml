@@ -1,0 +1,11 @@
+# Site settings
+title: Joel's Blog
+email: blog@joelwilliamson.ca
+description: > # this means to ignore newlines until "baseurl:"
+  A blog about whatever strikes my fancy.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://www.joelwilliamson.ca" # the base hostname & protocol for your site
+github_username:  joelwilliamson
+
+# Build settings
+markdown: kramdown
