@@ -3,20 +3,13 @@ layout : post
 title : QDBus
 categories : [programming, Qt]
 ---
-Often I want to read a PDF while cooking dinner.
-The projector is visible from the stove, but the desk is to far away for convenient scrolling.
-Thankfully, most KDE apps (including Okular) implement a IPC interface using qdbus.
-I realized that with a command line interface to Okular, my phone could (via SSH) be used as a remote control.
+Often I want to read a PDF while cooking dinner. The projector is visible from the stove, but the desk is to far away for convenient scrolling. Thankfully, most KDE apps (including Okular) implement a IPC interface using qdbus. I realized that with a command line interface to Okular, my phone could (via SSH) be used as a remote control.
 
-This turned out to be quite straightforward.
-The `qdbus` command (with no arguments) provides a list of all applications that have registered with it.
-By filtering for `'okular'`, we can find get an interface to all running Okular instances.
+This turned out to be quite straightforward. The `qdbus` command (with no arguments) provides a list of all applications that have registered with it. By filtering for `'okular'`, we can find get an interface to all running Okular instances.
 
-Okular implements a `currentDocument` method, so we can find which instance has the relevant document.
-We can then send any number of signals, most usefully `slotNextPage` and `slotPreviousPage`
+Okular implements a `currentDocument` method, so we can find which instance has the relevant document. We can then send any number of signals, most usefully `slotNextPage` and `slotPreviousPage`
 
-To read a document, I then open it regularly, SSH to my desktop, and send `okular_ctl filename slotNextPage`
-whenever I want to see the next page.
+To read a document, I then open it regularly, SSH to my desktop, and send `okular_ctl filename slotNextPage` whenever I want to see the next page.
 
 {% highlight bash %}
 #!/bin/sh
