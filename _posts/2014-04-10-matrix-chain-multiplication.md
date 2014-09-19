@@ -11,7 +11,7 @@ The solution is essentially brute force. Take the sequence and consider every po
 By memoizing, we reduce the size of the problem drastically. The cost of every sequence of length 1 is computed once. This is linear in the size of the problem. The cost of every sequence of length 2 is computed. There are n-1 of these, each running in twice the amount of time a look-up takes (to get the length 1 sequences). The cost of every sequence of length m is computed. There are n-m+1 of these, each still only needing twice the time of a look-up. Since the look-up time is logarithmic in the number of elements in the look-up table and the number of calls decreases as the cost increases, I believe this will be quadratic in the length of the sequence, but there may be a logarithmic factor. Either way, this is a massive improvement on the unmemoized algorithm.
 
 Using the unmemoized version, I computed the cost of a sequence of 20 100×100 matrices in 80s. The same sequence took 0.01s using memoization. Here is a summary of the running time for various lengths:
-|**Length** | **Unmemoized Time (s)** | **Memoized Time (s)**|
+|Length | Unmemoized Time (s) | Memoized Time (s)|
 |---|:-----:|-------:|
 |10 |0.003  |	0.005|
 |11 |0.014  |	0.003|
