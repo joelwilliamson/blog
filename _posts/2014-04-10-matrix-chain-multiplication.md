@@ -12,7 +12,7 @@ By memoizing, we reduce the size of the problem drastically. The cost of every s
 
 Using the unmemoized version, I computed the cost of a sequence of 20 100×100 matrices in 80s. The same sequence took 0.01s using memoization. Here is a summary of the running time for various lengths:
 |**Length** | **Unmemoized Time (s)** | **Memoized Time (s)**|
-|---|-------|--------|
+|---|:-----:|-------:|
 |10 |0.003  |	0.005|
 |11 |0.014  |	0.003|
 |15 |0.331  |	0.003|
