@@ -29,7 +29,7 @@ Using the unmemoized version, I computed the cost of a sequence of 20 100×100 m
 |300| ?     |	22|
 |400| ?     |	56|
 
-These timings suggest a complexity of ~n3. I’m not sure where the extra factor of n comes from. Regardless, it is obvious memoization makes it problems that would be absolutely infeasible using a naive algorithm.
+These timings suggest a complexity of ~n^3. I’m not sure where the extra factor of n comes from. Regardless, it is obvious memoization makes it problems that would be absolutely infeasible using a naive algorithm.
 
 {% highlight cpp %}
 #include <utility>
