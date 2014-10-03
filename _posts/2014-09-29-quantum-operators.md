@@ -81,7 +81,8 @@ We can now begin defining useful functions.
 The inner product of two functions is the integral of their product :
 
 ```ocaml
-let inner_product f1 f2 = I.integrate (fun x -> Complex.mul (Complex.cong (f1 x)) (f2 x))
+let inner_product f1 f2 = I.integrate
+	(fun x -> Complex.mul (Complex.cong (f1 x)) (f2 x))
 ```
 
 So the dual of a ket k is a function that takes another ket k' and returns <k|k'> :
