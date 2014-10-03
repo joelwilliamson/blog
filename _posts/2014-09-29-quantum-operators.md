@@ -77,6 +77,12 @@ and an operator returns a ket when applied to a ket, so
 type operator = ket -> ket
 ```
 
+Function composition is a very common task, so a compose operator is useful:
+
+```ocaml
+let (<|) f g = fun x -> f (g x)
+```
+
 We can now begin defining useful functions.
 The inner product of two functions is the integral of their product :
 
@@ -92,3 +98,7 @@ let make_bra (k:ket) = (fun k' -> inner_product k k')
 ```
 
 A bra can be applied to an operator to give a new bra (I have not yet figured out how to do this implicitly) :
+
+```ocaml
+let bra_op (b:bra) (o:operator) : bra = b <| o
+```
