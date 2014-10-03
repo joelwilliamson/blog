@@ -36,7 +36,7 @@ module type Differentiable = sig
 end
 ```
 
-As an example of a type that satisfies these constraints, I'll define a module that represents functions from the integers in [-5,5] to the complex plane.
+As an example of a type that satisfies these constraints, I willl define a module that represents functions from the integers in [-5,5] to the complex plane.
 
 ```ocaml
 module IntegralFunction = struct
@@ -90,3 +90,5 @@ So the dual of a ket k is a function that takes another ket k' and returns <k|k'
 ```ocaml
 let make_bra (k:ket) = (fun k' -> inner_product k k')
 ```
+
+A bra can be applied to an operator to give a new bra (I have not yet figured out how to do this implicitly) :
