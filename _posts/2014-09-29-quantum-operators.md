@@ -54,6 +54,14 @@ module IntegralFunction = struct
 end
 ```
 
+We use the constraints as types in the argument to the functor
+
+```ocaml
+module Make_braket	(A : CompatibleWithComplex)
+			(D : Differentiable with type t = A.t)
+			(I : Integrable with type t = A.t) = struct
+```
+
 Now comes the interesting bit. We have a type that represents a wavefunction (a 'ket'),
 but what type will its dual (bra) be? When we take the inner product of a bra and a ket,
 we get a complex number as the result. If we think of taking the inner product as applying
@@ -62,3 +70,11 @@ the bra to a ket, it is obvious the bra should be
 ```ocaml
 type bra = ket -> Complex.t
 ```
+
+and an operator returns a ket when applied to a ket, so
+
+```ocaml
+type operator = ket -> ket
+```
+
+We can now begin defining useful functions
