@@ -102,3 +102,12 @@ A bra can be applied to an operator to give a new bra (I have not yet figured ou
 ```ocaml
 let bra_op (b:bra) (o:operator) : bra = b <| o
 ```
+
+Kets (and bras) need to be normalized:
+
+```ocaml
+let normalize k =
+	let current_square = (make_bra k) k
+	in let normalization_factor = Complex.sqrt (Complex.div Complex.one current_square)
+	in fun x -> Complex.mul normalization_factor (k x)
+```
