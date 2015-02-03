@@ -52,6 +52,7 @@ struct {
     int x;
     int y;
 } point = { .x=4, .y=7 };
+{% endhighlight %}
 
 This is all basic stuff, that I see in common use. What caught my eye, largely
 because I couldn't see how the EBNF translated to C syntax, was the concept of
