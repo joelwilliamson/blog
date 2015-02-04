@@ -25,7 +25,7 @@ rectangle.bottomLeft.x
 
 is thus parsed as
 
-    {{primary-expression} '.' identifier} '.' identifier
+    \{\{primary-expression\} '.' identifier\} '.' identifier
 
 The rule for `postfix-expression` is known as **left recursive** because
 `postfix-expression` appear as the leftmost symbol in some of the productions.
@@ -54,7 +54,7 @@ Unfortunately, this changes the associativity of the operations. Instead of
 being left associative, they are now right associative, and our example would be
 parsed as
 
-    primary-expression {'.' identifier {'.' identifier}}
+    primary-expression \{'.' identifier \{'.' identifier\}\}
 
 The solution to this is somewhat dependent on the particulars of your parser.
 I have been using [Parsec](https://wiki.haskell.org/Parsec) for parsing. The
