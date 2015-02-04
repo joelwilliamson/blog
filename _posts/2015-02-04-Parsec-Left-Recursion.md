@@ -28,9 +28,9 @@ is thus parsed as
     ((primary-expression\} '.' identifier\} '.' identifier
 
 The rule for `postfix-expression` is known as **left recursive** because
-`postfix-expression` appear as the leftmost symbol in some of the productions.
-This causes a problem for most left-to-right parser. When they attempt to parse
-some a postfix expression, they might first attempt to parse it as a
+`postfix-expression` appears as the leftmost symbol in some of the productions.
+This causes a problem for most left-to-right parsers. When they attempt to parse
+a postfix expression, they might first attempt to parse it as a
 `primary-expression`. If that fails, they might attempt to parse it as an array
 subscript. To do this, they first need to parse a `postfix-expression`. This
 leads to an infinite recursion, where the parser continues to nest deeper and
@@ -63,8 +63,8 @@ left recursive grammar would be written as
 {% highlight haskell %}
 data PostfixExpression = Primary PrimaryExpression
      		       | ArraySubscript PostfixExpression Expression
-		       | FunctionCall PostfixExpression [ArgumentExpression]
-		       | Member PostfixExpression Identifier
+                       | FunctionCall PostfixExpression [ArgumentExpression]
+                       | Member PostfixExpression Identifier
 		       ⋮
 		       
 postfixExpression =
@@ -93,8 +93,8 @@ chainl1' parser op baseConstructor = parser >>= (rest . baseConstructor)
 			 <|> return context
 
 data AdditiveExpression = MultiplicativeExpression MultiplicativeExpression
-     			| Add AdditiveExpression MultiplicativeExpression
-			| Subtract AdditiveExpression MultiplicativeExpression
+                        | Add AdditiveExpression MultiplicativeExpression
+                        | Subtract AdditiveExpression MultiplicativeExpression
 
 parsePlusMinus = (reservedOp '+' >> return Add) <|> (reservedOp '-' >> return Subtract)
 additiveExpression = chainl1' multiplicativeExpression parsePlusMinus MultiplicativeExpression
@@ -111,8 +111,9 @@ alternatives
 
 {% highlight haskell %}
 postfixExpression = rest $ liftM Primary primaryExpression
-    where rest context = (rest $ liftM2 ArraySubscript context $ brackets expression)
-    	       	       	 <|> (rest $ liftM2 FunctionCall context $ parens expression)
+    where rest context =
+    	       	         (rest $ liftM2 ArraySubscript context $ brackets expression)
+			 <|> (rest $ liftM2 FunctionCall context $ parens expression)
 			 <|> (rest $ liftM2 Member context $ dot >> identifier)
 			 <|> context
 {% endhighlight %}
