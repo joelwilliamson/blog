@@ -25,7 +25,7 @@ rectangle.bottomLeft.x
 
 is thus parsed as
 
-    ((primary-expression\} '.' identifier\} '.' identifier
+    ((primary-expression) '.' identifier) '.' identifier
 
 The rule for `postfix-expression` is known as **left recursive** because
 `postfix-expression` appears as the leftmost symbol in some of the productions.
