@@ -1,6 +1,6 @@
 ---
-layout:	post
-title:	Parsec and Left Recursive Grammars
+layout:        post
+title:        Parsec and Left Recursive Grammars
 categories: [programming, parsing, haskell]
 ---
 The traditional way to specify the syntax of a programming language is to write
@@ -46,9 +46,9 @@ We can thus rewrite the grammar as
 
     postfix-expression': empty
                        | '[' expression ']' postfix-expression'
-		       | '(' argument-expression-list ')' postfix-expression'
-		       | '.' identifier postfix-expression'
-		       ⋮
+                       | '(' argument-expression-list ')' postfix-expression'
+                       | '.' identifier postfix-expression'
+                       ⋮
 
 Unfortunately, this changes the associativity of the operations. Instead of
 being left associative, they are now right associative, and our example would be
@@ -62,11 +62,11 @@ left recursive grammar would be written as
 
 {% highlight haskell %}
 data PostfixExpression = Primary PrimaryExpression
-     		       | ArraySubscript PostfixExpression Expression
+                       | ArraySubscript PostfixExpression Expression
                        | FunctionCall PostfixExpression [ArgumentExpression]
                        | Member PostfixExpression Identifier
-		       ⋮
-		       
+                       ⋮
+                       
 postfixExpression =
     (try $ liftM2 ArraySubscript postfixExpression $ brackets expression)
     <|> (try $ liftM2 FunctionCall postfixExpressioon $ parens $ many argumentExpression)
@@ -87,10 +87,10 @@ useful for handling arithmetic expressions.
 chainl1' :: Parser a -> Parser (b -> a -> b) -> (a -> b) -> Parser b
 chainl1' parser op baseConstructor = parser >>= (rest . baseConstructor)
     where rest context = do
-			     f <- op
-			     y <- parser
-			     rest $ f context y
-			 <|> return context
+                             f <- op
+                             y <- parser
+                             rest $ f context y
+                         <|> return context
 
 data AdditiveExpression = MultiplicativeExpression MultiplicativeExpression
                         | Add AdditiveExpression MultiplicativeExpression
@@ -112,10 +112,10 @@ alternatives
 {% highlight haskell %}
 postfixExpression = rest $ liftM Primary primaryExpression
     where rest context =
-    	       	         (rest $ liftM2 ArraySubscript context $ brackets expression)
-			 <|> (rest $ liftM2 FunctionCall context $ parens expression)
-			 <|> (rest $ liftM2 Member context $ dot >> identifier)
-			 <|> context
+                         (rest $ liftM2 ArraySubscript context $ brackets expression)
+                         <|> (rest $ liftM2 FunctionCall context $ parens expression)
+                         <|> (rest $ liftM2 Member context $ dot >> identifier)
+                         <|> context
 {% endhighlight %}
 
 This runs nicely and still preserves clarity.
