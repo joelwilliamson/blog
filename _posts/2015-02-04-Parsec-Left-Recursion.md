@@ -110,11 +110,11 @@ independently. The structure is similar to chainl1', but with several
 alternatives
 
 {% highlight haskell %}
-postfixExpression = rest $ liftM Primary primaryExpression
+postfixExpression = Primary primaryExpression >>= rest
     where rest context =
-                         (rest $ liftM2 ArraySubscript context $ brackets expression)
-                         <|> (rest $ liftM2 FunctionCall context $ parens expression)
-                         <|> (rest $ liftM2 Member context $ dot >> identifier)
+                         (brackets expression >>= rest . ArraySubscript context)
+                         <|> (parens expression >>= rest . FunctionCall context)
+                         <|> (dot >> identifier >>= rest . Member context)
                          <|> context
 {% endhighlight %}
 
@@ -123,3 +123,15 @@ This runs nicely and still preserves clarity.
 Coming up with this solution made showed just how valuable having the source for
 a solution that does something similar to what you want is, and how valuable
 having a package management system (Hackage) that can show source is.
+
+
+**Edit:** I messed up the final version of `postfixExpression`.
+The post was written before I had completed the loop inherent in the C expression type,
+and consequently couldn't test the parser.
+This is a case where implicit typing bit me.
+I knew `rest` should have been
+{% highlight haskell %}
+rest :: PostfixExpression -> ParsecT String u Identity PostfixExpression
+{% endhighlight %}
+but hadn't annotated it. My original version was taking a `PasecT` as its argument,
+which lead back to the looping problem.
