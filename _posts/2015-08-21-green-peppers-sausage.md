@@ -6,7 +6,7 @@ categories:   [cooking]
 
 This one is fairly self-explanatory.
 
-Heat the oven to 390°F (200°C)
+Heat the oven to 350°F (175°C)
 
 Remove the casings from several sausages.
 Fry the meat, as well as anything you think goes well with pork. Finely chopped apples work well.
