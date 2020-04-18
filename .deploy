@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 jekyll build
 scp -r ./_site www.joelwilliamson.ca:jekyll/
 ssh www.joelwilliamson.ca 'chmod a+r jekyll/* && rm -r /data/* ; mv jekyll/_site/* /data/ -f'

@@ -1,8 +1,8 @@
---
+---
 layout: post
 title:  Stir-Fried Shrimp
 categories:        [cooking]
---
+---
 
 Gwen's dad sent us a recipe for stir-fried shrimp with rice wine, and it turned out quite well.
 
