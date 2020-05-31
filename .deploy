@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 jekyll build
 scp -r ./_site www.joelwilliamson.ca:jekyll/
